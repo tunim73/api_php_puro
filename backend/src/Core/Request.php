@@ -5,7 +5,7 @@ namespace App\Core;
 class Request
 {
 
-    public static function body()
+    public static function getBody()
     {
         $body = file_get_contents('php://input');
         return json_decode($body, true);
