@@ -8,10 +8,10 @@ class Request
     public static function getBody()
     {
         $body = file_get_contents('php://input');
-        return json_decode($body, true);
+        return json_decode($body);
     }
 
-    public static function getRouteParams ()
+    public static function getRouteParams(): array
     {
         $route = $_SERVER["REQUEST_URI"] ?? '/';
         $pattern = "/\/(\d+)\/?/";

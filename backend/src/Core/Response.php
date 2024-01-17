@@ -4,7 +4,7 @@ namespace App\Core;
 
 class Response
 {
-    public static function json($status = 200, $data = null)
+    public static function json($status = 200, $data = null): void
     {
         http_response_code($status);
         echo json_encode([
@@ -13,7 +13,7 @@ class Response
         exit;
     }
 
-    public static function notFoundRoute ()
+    public static function notFoundRoute (): void
     {
         Response::json(404, data: [ 'message ' => 'not found']);
     }
