@@ -5,9 +5,11 @@ namespace App\Middlewares;
 use App\Core\Request;
 use App\Core\Response;
 use DomainException;
+use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Firebase\JWT\SignatureInvalidException;
+use UnexpectedValueException;
 
 class AuthMiddleware
 {
@@ -29,7 +31,7 @@ class AuthMiddleware
             $_SERVER['USER_ID'] = $decodedToken->id;
 
             return true;
-        } catch (SignatureInvalidException|DomainException $exception){
+        } catch (Exception $exception){
             return false;
         }
 
