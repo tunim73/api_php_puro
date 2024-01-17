@@ -23,8 +23,8 @@ $route->add('POST', '/login', 'AuthController::login', "00");
 $route->add('POST', '/user', 'UserController::store', "00");
 $route->add('GET', '/user', 'UserController::findAll', "11");
 $route->add('GET', '/user/[param]', 'UserController::findById', "10");
-$route->add('PUT', '/user/[param]', 'UserController::update', "00");
-$route->add('DELETE', '/user/[param]', 'UserController::destroy', "00");
+$route->add('PUT', '/user/[param]', 'UserController::update', "10");
+$route->add('DELETE', '/user/[param]', 'UserController::destroy', "10");
 
 $route->add('POST', '/category', 'CategoryController::store', "10");
 $route->add('GET', '/category', 'CategoryController::findAll', "10");
