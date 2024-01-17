@@ -34,12 +34,12 @@ class Routes
             Response::json(404, ['message' => 'not found method']);
         }
 
-
+        //rotas que exigem autenticação padrão, mas o não precisa ser um admin
         if($protection === "10"){
             if(!AuthMiddleware::verifyToken()) {
                 Response::json(401, data: ['message' => 'unauthorized']);
             }
-        }
+        }//rotas que exigem autenticação padrão + usuário ser um admin
         else if($protection === "11"){
             if(!AuthMiddleware::verifyToken()) {
                 Response::json(401, data: ['message' => 'unauthorized']);
