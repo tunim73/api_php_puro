@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Request;
 use App\Core\Response;
+use App\Middlewares\AuthMiddleware;
 use App\Models\User;
 use Firebase\JWT\JWT;
 
@@ -31,11 +32,7 @@ class AuthController
             ]);
         }
 
-        $payload = [
-          'name' => $userFound->name,
-          'id' => $userFound->id,
-          'type' => $userFound->type
-        ];
+        $payload = get_object_vars($userFound);
 
         $jwt = JWT::encode($payload, getenv('JWT_KEY'), getenv('JWT_ALG'));
 
@@ -44,8 +41,11 @@ class AuthController
             "token" => $jwt
         ]);
 
-
     }
 
-
+    public function verifyToken(): void
+    {
+        $status = AuthMiddleware::verifyToken() ? 200 : 401;
+       Response::json($status, AuthMiddleware::verifyToken());
+    }
 }

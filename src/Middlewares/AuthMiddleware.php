@@ -13,7 +13,7 @@ use UnexpectedValueException;
 
 class AuthMiddleware
 {
-    public static function verifyToken(): bool
+    public static function verifyToken(): bool|array
     {
         try {
             $token  = $_SERVER['HTTP_AUTHORIZATION'];
@@ -30,7 +30,9 @@ class AuthMiddleware
             $_SERVER['IS_ADMIN'] = $decodedToken->type;
             $_SERVER['USER_ID'] = $decodedToken->id;
 
-            return true;
+            return [
+                'user' => $decodedToken
+            ];
         } catch (Exception $exception){
             return false;
         }

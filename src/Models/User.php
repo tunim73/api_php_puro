@@ -66,7 +66,7 @@ class User
             $db->bindValue(1, $this->email);
             $db->execute();
 
-            return $db->fetch(PDO::FETCH_OBJ);
+            return $db->fetchObject(User::class);
         } catch (PDOException $exception) {
             return $exception->getMessage();
         }

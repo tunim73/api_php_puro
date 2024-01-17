@@ -14,12 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit;
 }
 
-/*$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
-$dotenv->load();*/
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 $route = new App\Core\Routes();
+
 $route->add('GET', '/test', "UserController::testDeploy", "00");
 $route->add('POST', '/login', 'AuthController::login', "00");
+$route->add('GET', '/auth', "AuthController::verifyToken", "00");
+
 $route->add('POST', '/user', 'UserController::store', "00");
 $route->add('GET', '/user', 'UserController::findAll', "11");
 $route->add('GET', '/user/[param]', 'UserController::findById', "10");
