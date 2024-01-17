@@ -14,16 +14,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit;
 }
 
-/*$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
-$dotenv->load();*/
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 $route = new App\Core\Routes();
-$route->add('GET', '/test', "UserController::testDeploy", false);
-$route->add('POST', '/login', 'AuthController::login', false);
-$route->add('POST', '/user', 'UserController::store', false);
-$route->add('GET', '/user', 'UserController::findAll', false);
-$route->add('GET', '/user/[param]', 'UserController::findById', true);
-$route->add('PUT', '/user/[param]', 'UserController::update', false);
-$route->add('DELETE', '/user/[param]', 'UserController::destroy', false);
+$route->add('GET', '/test', "UserController::testDeploy", "00");
+$route->add('POST', '/login', 'AuthController::login', "00");
+$route->add('POST', '/user', 'UserController::store', "00");
+$route->add('GET', '/user', 'UserController::findAll', "11");
+$route->add('GET', '/user/[param]', 'UserController::findById', "10");
+$route->add('PUT', '/user/[param]', 'UserController::update', "00");
+$route->add('DELETE', '/user/[param]', 'UserController::destroy', "00");
+
+$route->add('POST', '/category', 'CategoryController::store', "10");
+$route->add('GET', '/category', 'CategoryController::findAll', "10");
+$route->add('GET', '/category/[param]', 'CategoryController::findById', "10");
+$route->add('PUT', '/category/[param]', 'CategoryController::update', "10");
+$route->add('DELETE', '/category/[param]', 'CategoryController::destroy', "10");
+
+$route->add('POST', '/product', 'ProductController::store', "10");
+$route->add('GET', '/product', 'ProductController::findAll', "00");
+$route->add('GET', '/product/[param]', 'ProductController::findById', "10");
+$route->add('PUT', '/product/[param]', 'ProductController::update', "10");
+$route->add('DELETE', '/product/[param]', 'ProductController::destroy', "10");
+
+$route->add('POST', '/news', 'NewsController::store', "11");
+$route->add('GET', '/news', 'NewsController::findAll', "10");
+$route->add('GET', '/news/[param]', 'NewsController::findById', "00");
+$route->add('PUT', '/news/[param]', 'NewsController::update', "11");
+$route->add('DELETE', '/news/[param]', 'NewsController::destroy', "11");
+
 
 $route->go();
