@@ -6,7 +6,7 @@ date_default_timezone_set("America/Sao_Paulo");
 header("Content-type: application/json");
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Headers: Authorization, Content-Type");
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("Access-Control-Max-Age: 10800");
