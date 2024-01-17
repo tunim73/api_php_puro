@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Controllers\UserController;
+use App\Middlewares\AuthMiddleware;
 
 class Routes
 {
@@ -27,17 +28,17 @@ class Routes
         $protection = $callbackAndProtection[2];
 
         if(!class_exists($class)){
-            Response::json(400, ['message' => 'not found class']);
+            Response::json(404, ['message' => 'not found class']);
         }
         if(!method_exists($class, $classMethod)){
-            Response::json(400, ['message' => 'not found method']);
+            Response::json(404, ['message' => 'not found method']);
         }
 
 
         if($protection === "1"){
-            Response::json(data: [
-                "rota autenticada"
-            ]);
+            if(!AuthMiddleware::verifyToken()) {
+                Response::json(401, data: ['message' => 'unauthorized']);
+            }
         }
 
         $instance = new $class();
