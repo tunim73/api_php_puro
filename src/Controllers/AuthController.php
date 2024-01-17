@@ -45,7 +45,9 @@ class AuthController
 
     public function verifyToken(): void
     {
-        $status = AuthMiddleware::verifyToken() ? 200 : 401;
-       Response::json($status, AuthMiddleware::verifyToken());
+        $res = AuthMiddleware::verifyToken();
+
+        $status =  $res ? 200 : 401;
+       Response::json($status, $res);
     }
 }
