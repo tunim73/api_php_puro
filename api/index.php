@@ -19,7 +19,7 @@ $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 $route = new App\Core\Routes();
-
+$route->add('GET', '/test', "UserController::testDeploy", false);
 $route->add('POST', '/login', 'AuthController::login', false);
 $route->add('POST', '/user', 'UserController::store', false);
 $route->add('GET', '/user', 'UserController::findAll', false);

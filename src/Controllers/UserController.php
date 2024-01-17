@@ -114,6 +114,12 @@ class UserController
 
     }
 
+    public function testDeploy()
+    {
+        Response::json(data: [
+            "message" => "Hello World",
+        ]);
+    }
 
 
 
