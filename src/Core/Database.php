@@ -13,7 +13,10 @@ class Database
         $pass = getenv('DB_PASSWORD');
         $base = getenv('DB_BASE');
 
-        $pdo = new PDO("mysql:host=$host;dbname=$base;charset=UTF8;", $user, $pass);
+        $dsn = "mysql:host=$host;dbname=$base;charset=UTF8;";
+        $options = [PDO::MYSQL_ATTR_SSL_CA => "/etc/ssl/certs/ca-certificates.crt"];
+
+        $pdo = new PDO($dsn, $user, $pass, $options);
 
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -25,3 +28,8 @@ class Database
 $user = $_ENV['DB_USER'];
 $pass = $_ENV['DB_PASSWORD'];
 $base = $_ENV['DB_BASE'];*/
+
+/*DB_HOST=localhost
+DB_USER=laranja
+DB_PASSWORD=mynewpassword
+DB_BASE=api_php_puro*/
