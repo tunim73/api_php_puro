@@ -35,9 +35,18 @@ class Routes
         }
 
 
-        if($protection === "1"){
+        if($protection === "10"){
             if(!AuthMiddleware::verifyToken()) {
                 Response::json(401, data: ['message' => 'unauthorized']);
+            }
+        }
+        else if($protection === "11"){
+            if(!AuthMiddleware::verifyToken()) {
+                Response::json(401, data: ['message' => 'unauthorized']);
+            }
+
+            if($_SERVER['IS_ADMIN']!==1){
+                Response::json(401, data: ['message' => 'is not admin, unauthorized']);
             }
         }
 
