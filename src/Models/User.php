@@ -22,46 +22,55 @@ class User
 
     public function findAll()
     {
-        $sql = " SELECT * FROM users where type != 1";
+        try {
+            $sql = " SELECT * FROM users where type != 1";
 
-        $db = Database::connect()->prepare($sql);
+            $db = Database::connect()->prepare($sql);
 
-        if(!$db->execute())
-            return new ErrorException("server error");
+            $db->execute();
 
-        if ($db->rowCount() < 1) {
-            return [];
+            if ($db->rowCount() < 1) {
+                return [];
+            }
+
+            return $db->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $exception) {
+            return $exception->getMessage();
         }
 
-        return $db->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function findById()
     {
-        $sql = " SELECT * FROM users where id = ?";
+        try {
+            $sql = " SELECT * FROM users where id = ?";
 
-        $db = Database::connect()->prepare($sql);
-        $db->bindValue(1, $this->id);
-        $db->execute();
+            $db = Database::connect()->prepare($sql);
+            $db->bindValue(1, $this->id);
+            $db->execute();
 
-        if(!$db->execute())
-            return new ErrorException("server error");
+            return $db->fetch(PDO::FETCH_OBJ);
 
-        return $db->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $exception) {
+            return $exception->getMessage();
+        }
+
     }
 
     public function findByEmail()
     {
-        $sql = " SELECT * FROM users where email = ?";
+        try {
+            $sql = " SELECT * FROM users where email = ?";
 
-        $db = Database::connect()->prepare($sql);
-        $db->bindValue(1, $this->email);
-        $db->execute();
+            $db = Database::connect()->prepare($sql);
+            $db->bindValue(1, $this->email);
+            $db->execute();
 
-        if(!$db->execute())
-            return new ErrorException("server error");
+            return $db->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $exception) {
+            return $exception->getMessage();
+        }
 
-        return $db->fetch(PDO::FETCH_OBJ);
     }
 
     public function store(): bool|string
@@ -69,7 +78,7 @@ class User
         try {
             $sql = "INSERT INTO users (name, email, cpf, address, city, uf, password) VALUE (?, ?, ?, ?, ?, ?, ?);";
 
-            $db = $db = Database::connect()->prepare($sql);
+            $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->name);
             $db->bindValue(2, $this->email);
             $db->bindValue(3, $this->cpf);
@@ -117,8 +126,8 @@ class User
             $db->execute();
 
             return true;
-        } catch (PDOException $e) {
-            $messageError = $e->getMessage();
+        } catch (PDOException $exception) {
+            $messageError = $exception->getMessage();
 
             if (!strpos($messageError, "Duplicate entry"))
                 return $messageError;
@@ -144,9 +153,8 @@ class User
             $db->bindValue(1, $this->id);
             $db->execute();
             return true;
-        } catch (PDOException $e) {
-            $messageError = $e->getMessage();
-            return $messageError;
+        } catch (PDOException $exception) {
+            return $exception->getMessage();
         }
     }
 }

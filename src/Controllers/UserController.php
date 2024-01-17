@@ -43,12 +43,7 @@ class UserController
     public function findAll(): void
     {
         $user = new User();
-        try {
-            Response::json(data: $user->findAll());
-        } catch (ErrorException $exception) {
-            Response::json(data: $exception);
-        }
-
+        Response::json(data: $user->findAll());
 
     }
 
