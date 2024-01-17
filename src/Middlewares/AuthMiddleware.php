@@ -15,7 +15,14 @@ class AuthMiddleware
     {
         try {
             $token  = $_SERVER['HTTP_AUTHORIZATION'];
+            if(!$token)
+                return false;
+
             $token = str_replace('Bearer ','', $token);
+
+            if($token === "")
+                return false;
+
             $decodedToken = JWT::decode($token, new Key(getenv('JWT_KEY'), getenv('JWT_ALG')));
 
             $_SERVER['IS_ADMIN'] = $decodedToken->type;
