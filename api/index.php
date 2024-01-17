@@ -1,6 +1,6 @@
 <?php
-
-require_once __DIR__ . '/../vendor/autoload.php';
+echo "Hello World";
+/*require_once __DIR__ . '/../vendor/autoload.php';
 
 date_default_timezone_set("America/Sao_Paulo");
 
@@ -27,4 +27,4 @@ $route->add('GET', '/user/[param]', 'UserController::findById', true);
 $route->add('PUT', '/user/[param]', 'UserController::update', false);
 $route->add('DELETE', '/user/[param]', 'UserController::destroy', false);
 
-$route->go();
+$route->go();*/
