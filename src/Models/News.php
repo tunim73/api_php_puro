@@ -57,7 +57,7 @@ class News
     public function store(): bool|string
     {
         try {
-            $sql = "INSERT INTO news (title, summary, image, content, highlighy) VALUE (?, ?, ?, ?, ?);";
+            $sql = "INSERT INTO news (title, summary, image, content, highlight) VALUE (?, ?, ?, ?, ?);";
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->title);
