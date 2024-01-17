@@ -75,6 +75,7 @@ class Category
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->name);
+            $db->bindValue(2, $this->id);
             $db->execute();
 
             return true;
@@ -88,7 +89,7 @@ class Category
     {
         try {
             if(!self::findById())
-                return 'user not found';
+                return 'category not found';
 
             $sql = "DELETE FROM categories WHERE id= ? ;";
 

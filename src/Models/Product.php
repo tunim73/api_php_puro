@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Database;
+use PDO;
 use PDOException;
 
 class Product
@@ -23,7 +24,7 @@ class Product
     public function findAll()
     {
         try {
-            $sql = " SELECT * FROM products where stats = 1;";
+            $sql = " SELECT * FROM products where status = 1;";
 
             $db = Database::connect()->prepare($sql);
 
@@ -43,7 +44,7 @@ class Product
     public function findById()
     {
         try {
-            $sql = " SELECT * FROM products where id = ?";
+            $sql = " SELECT * FROM products where cod = ?";
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->cod);
