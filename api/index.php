@@ -30,14 +30,14 @@ $route->add('PUT', '/user/[param]', 'UserController::update', "10");
 $route->add('DELETE', '/user/[param]', 'UserController::destroy', "10");
 
 $route->add('POST', '/category', 'CategoryController::store', "10");
-$route->add('GET', '/category', 'CategoryController::findAll', "10");
-$route->add('GET', '/category/[param]', 'CategoryController::findById', "10");
+$route->add('GET', '/category', 'CategoryController::findAll', "00");
+$route->add('GET', '/category/[param]', 'CategoryController::findById', "00");
 $route->add('PUT', '/category/[param]', 'CategoryController::update', "10");
 $route->add('DELETE', '/category/[param]', 'CategoryController::destroy', "10");
 
 $route->add('POST', '/product', 'ProductController::store', "10");
 $route->add('GET', '/product', 'ProductController::findAll', "00");
-$route->add('GET', '/product/[param]', 'ProductController::findById', "10");
+$route->add('GET', '/product/[param]', 'ProductController::findById', "00");
 $route->add('PUT', '/product/[param]', 'ProductController::update', "10");
 $route->add('DELETE', '/product/[param]', 'ProductController::destroy', "10");
 
