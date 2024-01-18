@@ -44,7 +44,10 @@ class Product
     public function findById()
     {
         try {
-            $sql = " SELECT * FROM products where cod = ?";
+            $sql = "SELECT p.*, c.name AS categoryName, u.name AS userName
+FROM products p LEFT JOIN categories c ON p.categoryID = c.id
+LEFT JOIN users u ON p.userID = u.id
+WHERE p.cod = ?;";
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->cod);
