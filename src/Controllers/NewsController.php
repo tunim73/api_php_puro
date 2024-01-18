@@ -105,5 +105,11 @@ class NewsController
 
     }
 
+    public function findHighlightNews(): void
+    {
+        $news = new News();
+        Response::json(data: $news->findHighlightNews());
+
+    }
 
 }

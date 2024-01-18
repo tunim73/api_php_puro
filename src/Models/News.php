@@ -20,7 +20,7 @@ class News
     public function findAll()
     {
         try {
-            $sql = " SELECT * FROM news;";
+            $sql = "SELECT * FROM news ORDER BY createdAt DESC ;";
 
             $db = Database::connect()->prepare($sql);
 
@@ -116,5 +116,26 @@ class News
         } catch (PDOException $exception) {
             return $exception->getMessage();
         }
+    }
+
+
+    public function findHighlightNews()
+    {
+        try {
+            $sql = "SELECT * FROM news WHERE highlight = 1 ORDER BY createdAt DESC LIMIT 3;";
+
+            $db = Database::connect()->prepare($sql);
+
+            $db->execute();
+
+            if ($db->rowCount() < 1) {
+                return [];
+            }
+
+            return $db->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $exception) {
+            return $exception->getMessage();
+        }
+
     }
 }

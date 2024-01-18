@@ -47,6 +47,6 @@ $route->add('GET', '/news', 'NewsController::findAll', "10");
 $route->add('GET', '/news/[param]', 'NewsController::findById', "00");
 $route->add('PUT', '/news/[param]', 'NewsController::update', "11");
 $route->add('DELETE', '/news/[param]', 'NewsController::destroy', "11");
-
+$route->add('GET', '/news/highlight', 'NewsController::findHighlightNews', "10");
 
 $route->go();
