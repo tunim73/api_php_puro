@@ -15,7 +15,8 @@ class Category
     public function findAll()
     {
         try {
-            $sql = " SELECT * FROM categories";
+            $sql = "SELECT c.id AS id, c.name AS name, COUNT(p.cod) AS count 
+FROM categories c LEFT JOIN products p ON c.id = p.categoryID GROUP BY c.id, c.name;";
 
             $db = Database::connect()->prepare($sql);
             $db->execute();
@@ -34,12 +35,21 @@ class Category
     public function findById()
     {
         try {
-            $sql = " SELECT * FROM categories where id = ?";
+            $sql = "
+SELECT p.*, c.name as categoryName
+ FROM categories c 
+     JOIN products p on c.id = p.categoryId 
+ WHERE categoryId = ?;";
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->id);
             $db->execute();
-            return $db->fetch(PDO::FETCH_OBJ);
+
+            if ($db->rowCount() < 1) {
+                return [];
+            }
+
+            return $db->fetchAll(PDO::FETCH_OBJ);
         }catch (PDOException $exception) {
             return $exception->getMessage();
         }
