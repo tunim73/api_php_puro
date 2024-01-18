@@ -49,4 +49,7 @@ CREATE TABLE products (
 INSERT INTO users (id, name, email, cpf, address, city, uf, password, type)
 VALUES (1, 'Admin','admin@email.com', '123.456.789-98', 'awr', 'Rio de Janeiro', 'RJ', '$2y$10$5t6pTMiCkYjvJCipFvqEke1Hlbih8XJxeuppFyfjMf4dph59xCm2m', 1);
 
-
+INSERT INTO categories (id, name) VALUES (2, 'Frutas');
+INSERT INTO categories (id, name) VALUES (3, 'Roupas');
+INSERT INTO categories (id, name) VALUES (4, 'Eletrônicos');
+INSERT INTO categories (id, name) VALUES (5, 'Sapatos');

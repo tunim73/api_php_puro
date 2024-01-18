@@ -1,8 +1,3 @@
-INSERT INTO categories (id, name) VALUES (2, 'Frutas2');
-INSERT INTO categories (id, name) VALUES (3, 'Roupas');
-INSERT INTO categories (id, name) VALUES (4, 'Eletrônicos');
-INSERT INTO categories (id, name) VALUES (5, 'Sapatos');
-
 INSERT INTO users (id, name, email, cpf, address, city, uf, password, type, createdAt, updatedAt) VALUES (3, 'naruto', 'naruto@email.com', '323.456.789-98', 'adw', 'rio de janeiro', 'RJ', '$2y$10$5t6pTMiCkYjvJCipFvqEke1Hlbih8XJxeuppFyfjMf4dph59xCm2m', 1, '2024-01-17 06:55:08', '2024-01-17 06:55:08');
 INSERT INTO users (id, name, email, cpf, address, city, uf, password, type, createdAt, updatedAt) VALUES (2, 'peralta', 'peralta@email.com', '523.456.789-98', 'adw', 'rio de janeiro', 'RJ', '$2y$10$bnd8zHJEKkxLOTY.i370su8YdkwkjOjoqq6.vwe33L67ZnTRLWrRS', 0, '2024-01-17 12:44:24', '2024-01-17 12:44:24');
 INSERT INTO users (id, name, email, cpf, address, city, uf, password, type, createdAt, updatedAt) VALUES (1, 'Admin', 'admin@email.com', '123.456.789-98', 'awr', 'Rio de Janeiro', 'RJ', '$2y$10$5t6pTMiCkYjvJCipFvqEke1Hlbih8XJxeuppFyfjMf4dph59xCm2m', 1, '2024-01-18 10:55:26', '2024-01-18 10:55:26');
