@@ -157,4 +157,22 @@ class User
             return $exception->getMessage();
         }
     }
+
+    public function findProductsByUserId()
+    {
+        try {
+            $sql = "SELECT p.* FROM users u INNER JOIN products p on u.id = p.userId AND u.id = ?;";
+
+            $db = Database::connect()->prepare($sql);
+            $db->bindValue(1, $this->id);
+            $db->execute();
+
+            return $db->fetchAll(PDO::FETCH_OBJ);
+
+        } catch (PDOException $exception) {
+            return $exception->getMessage();
+        }
+    }
+    
+    
 }

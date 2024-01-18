@@ -26,6 +26,7 @@ $route->add('GET', '/auth', "AuthController::verifyToken", "00");
 $route->add('POST', '/user', 'UserController::store', "00");
 $route->add('GET', '/user', 'UserController::findAll', "11");
 $route->add('GET', '/user/[param]', 'UserController::findById', "10");
+$route->add('GET', '/user/[param]/product', 'UserController::findProductsByUserId', "10");
 $route->add('PUT', '/user/[param]', 'UserController::update', "10");
 $route->add('DELETE', '/user/[param]', 'UserController::destroy', "10");
 

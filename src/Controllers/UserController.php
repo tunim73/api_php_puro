@@ -116,6 +116,23 @@ class UserController
         ]);
     }
 
+    public function findProductsByUserId(array $params)
+    {
+        $id = $params[0][0];
+        $user = new User();
+        $user->id = intval($id);
+
+        $result = $user->findProductsByUserId();
+
+        if(is_string($result)){
+            Response::json( status: 400, data: [
+                'error' => true,
+                'message' => $result
+            ]);
+        }
+
+        Response::json(200, $result);
+    }
 
 
 
