@@ -15,6 +15,7 @@ Descomente as linhas 17 até 19, do arquivo api/index.php para usar o dotEnv;
 Renomeie o .env.example para .env e configure de acordo com seu banco de dados;
 
 Execute as querys no banco de dados, encontram-se no arquivo bd.sql;
+Rode os 'seeders', mas é opcional, arquivo seed.sql.
 
 Excute no terminal:
 
