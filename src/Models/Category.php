@@ -17,7 +17,7 @@ class Category
     {
         try {
             $sql = "SELECT c.id AS id, c.name AS name, COUNT(p.cod) AS count 
-FROM categories c LEFT JOIN products p ON c.id = p.categoryID GROUP BY c.id, c.name;";
+FROM categories c LEFT JOIN products p ON c.id = p.categoryID WHERE p.status = 1 GROUP BY c.id, c.name;";
 
             $db = Database::connect()->prepare($sql);
             $db->execute();
@@ -55,7 +55,7 @@ FROM categories c LEFT JOIN products p ON c.id = p.categoryID GROUP BY c.id, c.n
 SELECT p.*, c.name as categoryName
  FROM categories c 
      JOIN products p on c.id = p.categoryId 
- WHERE categoryId = ?;";
+ WHERE categoryId = ? AND p.status = 1;";
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->id);
