@@ -71,6 +71,9 @@ class UserController
         $user->address = $body->address;
         $user->city = $body->city;
         $user->uf = $body->uf;
+        if(!is_null($body->type)){
+            $user->type= $body->type;
+        }
 
         $updatedUser = $user->update();
 
@@ -109,14 +112,14 @@ class UserController
 
     }
 
-    public function testDeploy()
+    public function testDeploy(): void
     {
         Response::json(data: [
             "message" => "Hello World",
         ]);
     }
 
-    public function findProductsByUserId(array $params)
+    public function findProductsByUserId(array $params): void
     {
         $id = $params[0][0];
         $user = new User();
@@ -134,7 +137,42 @@ class UserController
         Response::json(200, $result);
     }
 
+    public function updatePassword(array $params): void
+    {
+        $id = $params[0][0];
+        $body = Request::getBody();
+        $user = new User();
+        $user->id = intval($id);
 
+        $userFound = $user->findById();
 
+        if(is_string($userFound)){
+            Response::json( status: 400, data: [
+                'error' => true,
+                'message' => $userFound
+            ]);
+        }
+
+        if(!password_verify($body->oldPassword, $userFound->password)){
+            Response::json( 400, [
+                'error' => true,
+                'message' => 'incorrect password'
+            ]);
+        }
+
+        $user->password = password_hash($body->password, PASSWORD_DEFAULT);;
+
+        $res = $user->updatePassword();
+
+        if(is_string($res)){
+            Response::json( status: 400, data: [
+                'error' => true,
+                'message' => $userFound
+            ]);
+        }
+
+        Response::json(200, ['message' => 'success']);
+
+    }
 
 }

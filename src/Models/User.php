@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Core\Response;
 use ErrorException;
 use PDO;
 use PDOException;
@@ -111,20 +112,33 @@ class User
     public function update(): bool|string
     {
         try {
-            $sql =
-                "UPDATE users SET name=?, email=?, cpf=?, address=?, city=?, uf=?
+            $db = Database::connect();
+
+            if(isset($this->type)) {
+                $sql =
+                    "UPDATE users SET name=?, email=?, cpf=?, address=?, city=?, uf=?, type=?
                     WHERE id = ? ;";
 
-            $db = Database::connect()->prepare($sql);
+                $db = $db->prepare($sql);
+                $db->bindValue(7, $this->type);
+                $db->bindValue(8,$this->id);
+            } else {
+                $sql =
+                    "UPDATE users SET name=?, email=?, cpf=?, address=?, city=?, uf=?
+                    WHERE id = ? ;";
+
+                $db = $db->prepare($sql);
+                $db->bindValue(7,$this->id);
+            }
+
             $db->bindValue(1, $this->name);
             $db->bindValue(2, $this->email);
             $db->bindValue(3, $this->cpf);
             $db->bindValue(4, $this->address);
             $db->bindValue(5, $this->city);
             $db->bindValue(6, $this->uf);
-            $db->bindValue(7, $this->id);
-            $db->execute();
 
+            $db->execute();
             return true;
         } catch (PDOException $exception) {
             $messageError = $exception->getMessage();
