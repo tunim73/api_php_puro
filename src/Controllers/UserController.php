@@ -44,7 +44,6 @@ class UserController
     {
         $user = new User();
         Response::json(data: $user->findAll());
-
     }
 
     public function findById(array $params): void
@@ -146,10 +145,10 @@ class UserController
 
         $userFound = $user->findById();
 
-        if(is_string($userFound)){
+        if(!$userFound){
             Response::json( status: 400, data: [
                 'error' => true,
-                'message' => $userFound
+                'message' => 'user not found'
             ]);
         }
 
@@ -167,7 +166,7 @@ class UserController
         if(is_string($res)){
             Response::json( status: 400, data: [
                 'error' => true,
-                'message' => $userFound
+                'message' => $res
             ]);
         }
 
@@ -175,4 +174,35 @@ class UserController
 
     }
 
+    public function updatePasswordByAdmin(array $params): void
+    {
+        $id = $params[0][0];
+        $body = Request::getBody();
+        $user = new User();
+        $user->id = intval($id);
+        $user->password = password_hash($body->password, PASSWORD_DEFAULT);;
+
+        $userFound = $user->findById();
+
+        if(!$userFound){
+            Response::json( status: 400, data: [
+                'error' => true,
+                'message' => 'user not found'
+            ]);
+        }
+
+
+        $res = $user->updatePassword();
+
+        if(is_string($res)){
+            Response::json( status: 400, data: [
+                'error' => true,
+                'message' => $res
+            ]);
+        }
+
+        Response::json(200, ['message' => 'success']);
+
+
+    }
 }

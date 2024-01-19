@@ -24,8 +24,7 @@ class User
     public function findAll()
     {
         try {
-            $sql = " SELECT * FROM users where type != 1";
-
+            $sql = " SELECT * FROM users where type != 1 order by name ASC";
             $db = Database::connect()->prepare($sql);
 
             $db->execute();
@@ -186,6 +185,26 @@ class User
         } catch (PDOException $exception) {
             return $exception->getMessage();
         }
+    }
+
+    public function updatePassword(): bool|string
+    {
+        try {
+            $sql =
+                "UPDATE users SET password = ? WHERE id = ? ;";
+
+            $db = Database::connect()->prepare($sql);
+
+            $db->bindValue(1, $this->password);
+            $db->bindValue(2, $this->id);
+
+
+            $db->execute();
+            return true;
+        } catch (PDOException $exception) {
+            return $exception->getMessage();
+        }
+
     }
     
     
