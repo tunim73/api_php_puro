@@ -11,7 +11,7 @@ class Product
 
     public int $cod;
     public string $name;
-    public int $status;
+    public int $status=1;
     public int $value;
     public int $quantity;
     public string $description;
@@ -65,8 +65,8 @@ WHERE p.cod = ?;";
     {
         try {
             $sql = "
-INSERT INTO products (name, value, quantity, description, image, userId, categoryId) 
-                    VALUE (?, ?, ?, ?, ?, ?, ?);";
+INSERT INTO products (name, value, quantity, description, image, userId, categoryId, status) 
+                    VALUE (?, ?, ?, ?, ?, ?, ?, ?);";
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->name);
@@ -76,9 +76,8 @@ INSERT INTO products (name, value, quantity, description, image, userId, categor
             $db->bindValue(5, $this->image);
             $db->bindValue(6, $this->userId);
             $db->bindValue(7, $this->categoryId);
-
+            $db->bindValue(8, $this->status);
             $db->execute();
-            $this->cod = Database::connect()->lastInsertId();
             return true;
         } catch (PDOException $exception) {
             return $exception->getMessage();
@@ -94,7 +93,8 @@ INSERT INTO products (name, value, quantity, description, image, userId, categor
     {
         try {
             $sql =
-                "UPDATE products SET name=?, value=?, quantity=?, description=?, image=?, categoryId=?
+                "UPDATE products SET name=?, value=?, quantity=?, description=?, image=?, categoryId=?,
+                    status=?
                     WHERE cod = ? ;";
 
             $db = Database::connect()->prepare($sql);
@@ -104,7 +104,8 @@ INSERT INTO products (name, value, quantity, description, image, userId, categor
             $db->bindValue(4, $this->description);
             $db->bindValue(5, $this->image);
             $db->bindValue(6, $this->categoryId);
-            $db->bindValue(7, $this->cod);
+            $db->bindValue(7, $this->status);
+            $db->bindValue(8, $this->cod);
             $db->execute();
 
             return true;

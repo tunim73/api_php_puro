@@ -21,7 +21,7 @@ class ProductController
         $product->image = $body->image;
         $product->userId = $body->userId;
         $product->categoryId = $body->categoryId;
-
+        $product->status = $body->status;
         $newProduct = $product->store();
 
         if(is_string($newProduct)){
@@ -68,6 +68,7 @@ class ProductController
         $product->description = $body->description;
         $product->image = $body->image;
         $product->categoryId = $body->categoryId;
+        $product->status = $body->status;
 
         $updatedProduct = $product->update();
 
