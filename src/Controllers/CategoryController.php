@@ -25,7 +25,7 @@ class CategoryController
         }
 
         Response::json( 201 ,[
-            "message" => $newCategory,
+            "message" => 'success',
             "category" => $category
         ]);
 
@@ -38,12 +38,12 @@ class CategoryController
 
     }
 
-    public function findById(array $params): void
+    public function findProductByCategory(array $params): void
     {
         $id = $params[0][0];
         $category = new Category();
         $category->id = intval($id);
-        $result = $category->findById();
+        $result = $category->findProductByCategory();
 
         Response::json(data: $result);
     }

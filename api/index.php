@@ -24,18 +24,20 @@ $route->add('POST', '/login', 'AuthController::login', "00");
 $route->add('GET', '/auth', "AuthController::verifyToken", "00");
 
 $route->add('POST', '/user', 'UserController::store', "00");
-$route->add('GET', '/user', 'UserController::findAll', "11");
+$route->add('GET', '/users', 'UserController::findAll', "11");
 $route->add('GET', '/user/[param]', 'UserController::findById', "10");
 $route->add('GET', '/user/[param]/product', 'UserController::findProductsByUserId', "10");
 $route->add('PUT', '/user/[param]', 'UserController::update', "10");
 $route->add('DELETE', '/user/[param]', 'UserController::destroy', "10");
 $route->add('PATCH', '/user/[param]/password', 'UserController::updatePassword', "10");
+$route->add('PATCH', '/admin/user/[param]/password', 'UserController::updatePasswordByAdmin', "11");
+
 
 $route->add('POST', '/category', 'CategoryController::store', "10");
 $route->add('GET', '/category', 'CategoryController::findAll', "00");
-$route->add('GET', '/category/[param]', 'CategoryController::findById', "00");
+$route->add('GET', '/category/[param]', 'CategoryController::findProductByCategory', "00");
 $route->add('PUT', '/category/[param]', 'CategoryController::update', "10");
-$route->add('DELETE', '/category/[param]', 'CategoryController::destroy', "10");
+$route->add('DELETE', '/category/[param]', 'CategoryController::destroy', "11");
 
 $route->add('POST', '/product', 'ProductController::store', "10");
 $route->add('GET', '/product', 'ProductController::findAll', "00");

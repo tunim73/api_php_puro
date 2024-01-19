@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Core\Response;
 use PDO;
 use PDOException;
 
@@ -33,6 +34,21 @@ FROM categories c LEFT JOIN products p ON c.id = p.categoryID GROUP BY c.id, c.n
     }
 
     public function findById()
+    {
+        try {
+            $sql = " SELECT * FROM categories WHERE id = ?;";
+
+            $db = Database::connect()->prepare($sql);
+            $db->bindValue(1, $this->id);
+            $db->execute();
+
+            return $db->fetch(PDO::FETCH_OBJ);
+        }catch (PDOException $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    public function findProductByCategory(): bool|array|string
     {
         try {
             $sql = "
@@ -67,8 +83,17 @@ SELECT p.*, c.name as categoryName
             $db->execute();
             $this->id = Database::connect()->lastInsertId();
             return true;
-        } catch (PDOException $exception) {
-            return $exception->getMessage();
+        } catch (PDOException $e) {
+            $messageError = $e->getMessage();
+
+            if(!strpos($messageError, "Duplicate entry"))
+                return $messageError;
+
+            $pattern = "/for key 'categories.(.*?)'/";
+            preg_match($pattern, $messageError, $match);
+            $keyName = $match[1];
+
+            return "Já existe categoria com esse $keyName cadastrada";
         }
 
 
@@ -101,7 +126,7 @@ SELECT p.*, c.name as categoryName
             if(!self::findById())
                 return 'category not found';
 
-            $sql = "DELETE FROM categories WHERE id= ? ;";
+                $sql = "DELETE FROM categories WHERE id= ? ;";
 
             $db = Database::connect()->prepare($sql);
             $db->bindValue(1, $this->id);
