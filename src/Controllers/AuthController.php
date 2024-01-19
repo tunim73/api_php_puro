@@ -47,7 +47,15 @@ class AuthController
     {
         $res = AuthMiddleware::verifyToken();
 
-        $status =  $res ? 200 : 401;
-       Response::json($status, $res);
+        if(!$res)
+            Response::json(401, $res);
+
+        $user = new User();
+        $user->id= $_SERVER['USER_ID'];
+
+        $foundUser = $user->findById();
+
+        Response::json(data: ['user'=>$foundUser]);
+
     }
 }
