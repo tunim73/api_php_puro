@@ -13,7 +13,7 @@ PHP | JWT | Mysql | PDO
 
 ### Tecnologias frontend
 
-Typescript | React | Tailwind CSS | [Flowbite](https://flowbite.com/docs/getting-started/introduction/)
+Typescript | React | Tailwind CSS | [Flowbite](https://flowbite.com/docs/getting-started/introduction/) | React Hook Form | ContextAPI
 
 ## Requisitos
 
